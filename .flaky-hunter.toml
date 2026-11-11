@@ -1,0 +1,33 @@
+# flaky-hunter 配置示例。所有字段均可省略，省略时使用内置默认值。
+# 优先级：CLI 参数 > 环境变量 FH_* > 本文件 > 内置默认值
+
+[run]
+# 命令模板必须包含 {report}，可选 {round}
+command = "pytest -q --junitxml={report}"
+rounds = 10
+timeout_per_round = 600
+max_rounds_seconds = 1800
+adapter = "pytest"            # pytest | junit-xml
+cwd = "."
+delay = 0
+
+[analysis]
+min_attempts = 5              # 少于此轮数的用例归为 insufficient
+flaky_threshold = 30          # 报告中标记为"需关注"的分数线
+ignore = []
+exclude_markers = []
+
+[locate]
+enabled = true
+top_n = 5                     # 只定位评分最高的 N 个与 broken 用例
+confirm_runs = 2
+baseline_runs = 2
+max_probe_total = 60          # 单个目标用例的 probe 预算
+timeout_per_probe = 300
+
+[output]
+format = "terminal"           # terminal | json | markdown
+path = ""
+
+[ci]
+fail_on_score = 0             # 0 表示不启用门禁

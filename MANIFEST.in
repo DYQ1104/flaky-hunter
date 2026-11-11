@@ -1,0 +1,6 @@
+include README.md
+include LICENSE
+include .flaky-hunter.toml
+recursive-include src/flaky_hunter/demo/fixture *.py
+recursive-include tests *.py
+global-exclude __pycache__ *.py[cod]
